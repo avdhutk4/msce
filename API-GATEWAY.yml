@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: USER-SERVICE
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/users/**
+            - id: DEPARTMENT-SERVICE
+              uri: lb://DEPARTMENT-SERVICE
+              predicates:
+                - Path=/departments/**
+
+
+# starts with /users and end with anything like ** wild card character
+# it's load-balanced and as we are connected with the service-registry thats why
+#application-name directly after lb://microservice_name lb because we have multiple instance of the services
+# we can scaled up different microservices.
+
+server:
+  port: 9191
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
