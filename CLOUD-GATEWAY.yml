@@ -1,6 +1,6 @@
 spring:
   application:
-    name: API-GATEWAY
+    name: CLOUD-GATEWAY
   cloud:
     gateway:
       server:
